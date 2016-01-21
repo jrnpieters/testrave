@@ -1,0 +1,24 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'BookingBug_Example', :exclusive => true do
+  pod 'BookingBug/RxSwift', :path => '../'
+end
+
+target 'BookingBug_Tests', :exclusive => true do
+  pod 'BookingBug/RxSwift', :path => '../'
+
+  pod 'Fakery', '~> 1.1'
+  pod 'Mockingjay', '~> 1.1'
+  pod 'Nimble', '~> 3.0'
+  pod 'Quick', '~> 0.8'
+end
+
+post_install do |installer|
+  bb_targets = installer.pods_project.targets.select { |target| target.name =~ /BookingBug$/ }
+  bb_targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['ENABLE_TESTABILITY'] = 'YES'
+    end
+  end
+end

@@ -1,0 +1,6 @@
+framework module BookingBug {
+  umbrella header "BookingBug-umbrella.h"
+
+  export *
+  module * { export * }
+}
